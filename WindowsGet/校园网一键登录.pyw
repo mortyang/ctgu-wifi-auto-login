@@ -14,15 +14,9 @@ def get_ip():
 
 
 if __name__ == '__main__':
-
-    # 以下5个变量，需要根据自己的情况进行修改，
-    # 与MacroDroid中的几乎保持一致,
-    # 仅对中文作修改，其他的字符（特别是前后的单引号）均不要修改！
     login_IP = 'http://172.22.0.13/webauth.do?wlanuserip=' + get_ip() + \
         '&wlanacname=NFV-VBRAS-01&mac=08:5b:d6:7d:0a:41&vlan=1022&rand=241f036eb1542c&url=http://www.msftconnecttest.com/redirec'
-    result_return = '改为登录成功页面的一些特征字符串'
-    sign_parameter = f'改为那一长串的登录参数'
-    dat = 'loginType=&auth_type=0&isBindMac1=1&pageid=61&templatetype=1&listbindmac=1&recordmac=0&isRemind=0&loginTimes=&groupId=&distoken=&echostr=&url=http%3A%2F%2Fwww.msftconnecttest.com%2Fredirec&isautoauth=&userId=202008114113&passwd=082102'
+    dat = 'loginType=&auth_type=0&isBindMac1=1&pageid=61&templatetype=1&listbindmac=1&recordmac=0&isRemind=0&loginTimes=&groupId=&distoken=&echostr=&url=http%3A%2F%2Fwww.msftconnecttest.com%2Fredirec&isautoauth=&userId=?&passwd=?'
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Encoding': 'gzip, deflate',
