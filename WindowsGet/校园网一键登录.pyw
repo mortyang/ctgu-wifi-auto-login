@@ -2,6 +2,12 @@ from win10toast import ToastNotifier
 import requests
 import os
 import socket
+import uuid
+
+
+def get_mac_address():
+    mac = uuid.UUID(int=uuid.getnode()).hex[-12:]
+    return ":".join([mac[e:e+2] for e in range(0, 11, 2)])
 
 
 def get_ip():
@@ -15,7 +21,8 @@ def get_ip():
 
 if __name__ == '__main__':
     login_IP = 'http://172.22.0.13/webauth.do?wlanuserip=' + get_ip() + \
-        '&wlanacname=NFV-VBRAS-01&mac=08:5b:d6:7d:0a:41&vlan=1022&rand=241f036eb1542c&url=http://www.msftconnecttest.com/redirec'
+        '&wlanacname=NFV-VBRAS-01&mac=' + get_mac_address() + \
+        '&vlan=1022&rand=241f036eb1542c&url=http://www.msftconnecttest.com/redirec'
     dat = 'loginType=&auth_type=0&isBindMac1=1&pageid=61&templatetype=1&listbindmac=1&recordmac=0&isRemind=0&loginTimes=&groupId=&distoken=&echostr=&url=http%3A%2F%2Fwww.msftconnecttest.com%2Fredirec&isautoauth=&userId=?&passwd=?'
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -40,7 +47,7 @@ if __name__ == '__main__':
 
     try:
         r = requests.post(
-            login_IP, data=dat,headers=headers)
+            login_IP, data=dat, headers=headers)
         r.encoding = r.apparent_encoding
         req = r.text
         print(req)
