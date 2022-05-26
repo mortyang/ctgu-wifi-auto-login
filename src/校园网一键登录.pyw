@@ -23,7 +23,7 @@ if __name__ == '__main__':
     # 修改dat变量末尾的账号密码    logip变量的mac后问号全部替换成本机的mac并且关闭随机mac
     login_IP = 'http://172.22.0.13/webauth.do?wlanuserip=' + get_ip() + \
         '&wlanacname=NFV-VBRAS-01&mac=??????&vlan=1022&rand=3ef6c2a1b14b88&url=http://edge.microsoft.com/generate_20'
-    dat = 'loginType=&auth_type=0&isBindMac1=1&pageid=61&templatetype=1&listbindmac=1&recordmac=0&isRemind=0&loginTimes=&groupId=&distoken=&echostr=&url=http%3A%2F%2Fwww.msftconnecttest.com%2Fredirec&isautoauth=&userId=?&passwd=?'
+    dat = 'loginType=&auth_type=0&isBindMac1=1&pageid=61&templatetype=1&listbindmac=1&recordmac=0&isRemind=0&loginTimes=&groupId=&distoken=&echostr=&url=http://edge.microsoft.com/generate_20&isautoauth=&userId=?&passwd=?'
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Encoding': 'gzip, deflate',
