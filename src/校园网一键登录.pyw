@@ -2,12 +2,12 @@ from win10toast import ToastNotifier
 import requests
 import os
 import socket
-import uuid
+# import uuid
 
 
-def get_mac_address():
-    mac = uuid.UUID(int=uuid.getnode()).hex[-12:]
-    return ":".join([mac[e:e+2] for e in range(0, 11, 2)])
+# def get_mac_address():
+#     mac = uuid.UUID(int=uuid.getnode()).hex[-12:]
+#     return ":".join([mac[e:e+2] for e in range(0, 11, 2)])
 
 
 def get_ip():
@@ -20,9 +20,9 @@ def get_ip():
 
 
 if __name__ == '__main__':
+    # 修改dat变量末尾的账号密码    logip变量的mac后问号全部替换成本机的mac并且关闭随机mac
     login_IP = 'http://172.22.0.13/webauth.do?wlanuserip=' + get_ip() + \
-        '&wlanacname=NFV-VBRAS-01&mac=' + get_mac_address() + \
-        '&vlan=1022&rand=241f036eb1542c&url=http://www.msftconnecttest.com/redirec'
+        '&wlanacname=NFV-VBRAS-01&mac=??????&vlan=1022&rand=3ef6c2a1b14b88&url=http://edge.microsoft.com/generate_20'
     dat = 'loginType=&auth_type=0&isBindMac1=1&pageid=61&templatetype=1&listbindmac=1&recordmac=0&isRemind=0&loginTimes=&groupId=&distoken=&echostr=&url=http%3A%2F%2Fwww.msftconnecttest.com%2Fredirec&isautoauth=&userId=?&passwd=?'
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -32,16 +32,16 @@ if __name__ == '__main__':
         'Connection': 'keep-alive',
         'Content-Length': '234',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Cookie': 'softrand=82177643ea08df200ab2093e56e61c7c078a2abde2af50e082e3e9514e198ba2; JSESSIONID=C7A732260E251682875C347FC3945226; portalUserCookie=ba0c439dc7eb0e5882efacabf4b53263f302914d8b8ca03ca21ab41e2650cc19a1854de075c74c3ec81ad3ff79091d15',
         'Host': '172.22.0.13',
         'Origin': 'http://172.22.0.13',
-        'Referer': 'http://172.22.0.13/webauth.do?wlanuserip=172.20.43.108&wlanacname=NFV-VBRAS-01&mac=08:5b:d6:7d:0a:41&vlan=1022&rand=241f036eb1542c&url=http://www.msftconnecttest.com/redirec',
+        #这里也有mac需要修改
+        'Referer': 'POST http://172.22.0.13/webauth.do?wlanuserip=' + get_ip() + '&wlanacname=NFV-VBRAS-01&mac=??????&vlan=1022&rand=3ef6c2a1b14b88&url=http://edge.microsoft.com/generate_20',
         'Upgrade-Insecure-Requests': '1',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36 Edg/101.0.1210.47'
     }
     print(login_IP)
     # 以下4个变量，可根据自己的需要，决定是否修改
-    already_icon = "./ico/check.ico"
+    already_icon = "./ico/Check.ico"
     success_icon = "./ico/Tips.ico"
     unknown_icon = "./ico/Cross.ico"
 
@@ -50,7 +50,6 @@ if __name__ == '__main__':
             login_IP, data=dat, headers=headers)
         r.encoding = r.apparent_encoding
         req = r.text
-        print(req)
     except:
         req = 'False'
 
@@ -69,24 +68,6 @@ if __name__ == '__main__':
                                    duration=3,
                                    threaded=False)
         os._exit(0)
-
-    # elif "学号或教师工号" in req:
-    #     r = requests.post(login_IP, timeout=1, data=dat)
-    #     req = r.text
-    #     if result_return in req:
-    #         ToastNotifier().show_toast(title="登录成功",
-    #                                    msg="校园网状态",
-    #                                    icon_path=success_icon,
-    #                                    duration=5,
-    #                                    threaded=False)
-    #     else:
-    #         ToastNotifier().show_toast(title="登录失败",
-    #                                    msg="校园网状态",
-    #                                    icon_path=false_icon,
-    #                                    duration=5,
-    #                                    threaded=False)
-
-    #     os._exit(0)
 
     else:
         ToastNotifier().show_toast(title="未连接到校园网,或出现其它啊问题",
