@@ -20,10 +20,18 @@ def get_ip():
 
 
 if __name__ == '__main__':
-    # 修改dat变量末尾的账号密码    logip变量的mac后问号全部替换成本机的mac并且关闭随机mac
+
+    #此处修改
+    username = '?' #此处填写账号密码
+    password = '?'
+    mac = ''  #填写mac地址，并且关闭随机mac(如果开了)
+
+
     login_IP = 'http://172.22.0.13/webauth.do?wlanuserip=' + get_ip() + \
-        '&wlanacname=NFV-VBRAS-01&mac=??????&vlan=1022&rand=3ef6c2a1b14b88&url=http://edge.microsoft.com/generate_20'
-    dat = 'loginType=&auth_type=0&isBindMac1=1&pageid=61&templatetype=1&listbindmac=1&recordmac=0&isRemind=0&loginTimes=&groupId=&distoken=&echostr=&url=http://edge.microsoft.com/generate_20&isautoauth=&userId=?&passwd=?'
+        '&wlanacname=NFV-VBRAS-01&mac=' + mac +'&vlan=1022&rand=3ef6c2a1b14b88&url=http://edge.microsoft.com/generate_20'
+    dat = 'loginType=&auth_type=0&isBindMac1=1&pageid=61&templatetype=1&listbindmac=1&recordmac=0&isRemind=0' \
+          '&loginTimes=&groupId=&distoken=&echostr=&url=http://edge.microsoft.com/generate_20&isautoauth=&userId=' + \
+          username +'&passwd=' + password
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Encoding': 'gzip, deflate',
@@ -35,12 +43,13 @@ if __name__ == '__main__':
         'Host': '172.22.0.13',
         'Origin': 'http://172.22.0.13',
         #这里也有mac需要修改
-        'Referer': 'POST http://172.22.0.13/webauth.do?wlanuserip=' + get_ip() + '&wlanacname=NFV-VBRAS-01&mac=??????&vlan=1022&rand=3ef6c2a1b14b88&url=http://edge.microsoft.com/generate_20',
+        'Referer': 'POST http://172.22.0.13/webauth.do?wlanuserip=' + get_ip() + '&wlanacname=NFV-VBRAS-01&mac=' + mac +'&vlan=1022&rand=3ef6c2a1b14b88&url=http://edge.microsoft.com/generate_20',
         'Upgrade-Insecure-Requests': '1',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36 Edg/101.0.1210.47'
     }
     print(login_IP)
-    # 以下4个变量，可根据自己的需要，决定是否修改
+
+    # 以下4个变量控制图标，可根据自己的需要，决定是否修改
     already_icon = "./ico/Check.ico"
     success_icon = "./ico/Tips.ico"
     unknown_icon = "./ico/Cross.ico"
@@ -70,7 +79,7 @@ if __name__ == '__main__':
         os._exit(0)
 
     else:
-        ToastNotifier().show_toast(title="未连接到校园网,或出现其它啊问题",
+        ToastNotifier().show_toast(title="未连接到校园网,或出现其它问题",
                                    msg="校园网状态",
                                    icon_path=unknown_icon,
                                    duration=1,
